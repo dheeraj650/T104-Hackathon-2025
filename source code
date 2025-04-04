@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SECTORS 5
+
+typedef struct {
+    char sector[50];
+    int incident_count;
+} CyberIncident;
+
+void displayDashboard(CyberIncident incidents[], int size) {
+    printf("Cyber Incident Dashboard\n");
+    printf("------------------------\n");
+    for (int i = 0; i < size; i++) {
+        printf("Sector: %s | Incidents: %d\n", incidents[i].sector, incidents[i].incident_count);
+    }
+}
+
+void updateIncident(CyberIncident incidents[], int size, char *sector, int count) {
+    for (int i = 0; i < size; i++) {
+        if (strcmp(incidents[i].sector, sector) == 0) {
+            incidents[i].incident_count += count;
+            return;
+        }
+    }
+}
+
+int main() {
+    CyberIncident incidents[MAX_SECTORS] = {
+        {"Finance", 10},
+        {"Healthcare", 5},
+        {"Government", 7},
+        {"Technology", 12},
+        {"Education", 3}
+    };
+
+    displayDashboard(incidents, MAX_SECTORS);
+    
+    updateIncident(incidents, MAX_SECTORS, "Finance", 2);
+    updateIncident(incidents, MAX_SECTORS, "Technology", 4);
+
+    printf("\nUpdated Dashboard:\n");
+    displayDashboard(incidents, MAX_SECTORS);
+
+    return 0;
+}
